@@ -1,0 +1,23 @@
+{
+  "title": "New Balance 2002r",
+  "price": "DKK 1800.00",
+  "details": {},
+  "description": "brugt få gange",
+  "images": [
+    {
+      "filename": "billede_01.webp",
+      "url": "https://images1.vinted.net/t/04_01333_xn1v1nkQHzY2JGq9CpCjgjK2/f800/1753972658.webp?s=d38f1da9fee86edc7ccd1c9d5acd8e47fc6e5a94",
+      "path": "images/billede_01.webp"
+    },
+    {
+      "filename": "billede_02.webp",
+      "url": "https://images1.vinted.net/t/01_01c9d_WK6hqxNCnL7XQtK2pp3K1F89/f800/1753973202.webp?s=cfeca80e00125a60c76dffbb418bb01d446d8121",
+      "path": "images/billede_02.webp"
+    },
+    {
+      "filename": "billede_03.webp",
+      "url": "https://images1.vinted.net/t/02_0136a_ifC3EgrLiGJGRxYG3b5hbaJ3/f800/1753973202.webp?s=20265ca07310678d8a4e4ab9dfe4967fe669d651",
+      "path": "images/billede_03.webp"
+    }
+  ]
+}
