@@ -1,5 +1,5 @@
-# Vinted Repost Script
-8
+# Vinted Repost Script v.0.1
+
 Dette script automatiserer processen med at hente information om annoncer på vinted - gemmer billeder og data, samt sletter den gamle annonce.  
 
 ⚠️ **Bemærk:** Brug af automatiseringsværktøjer på Vinted kan være i strid med deres vilkår. Brug scriptet ansvarligt og på egen risiko.
