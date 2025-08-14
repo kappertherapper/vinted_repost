@@ -1,30 +1,30 @@
 # Vinted Repost Script v.0.1
 
-Dette script automatiserer processen med at hente information om annoncer på vinted - gemmer billeder og data, samt sletter den gamle annonce.  
+This script automates the process of retrieving information about listings on Vinted.
 
-⚠️ **Bemærk:** Brug af automatiseringsværktøjer på Vinted kan være i strid med deres vilkår. Brug scriptet ansvarligt og på egen risiko.
-
----
-
-## Funktioner
-
-- Logger ind på Vinted via browser (manuelt login kræves).  
-- Navigerer til din profil og finder den sidste aktive annonce.  
-- Henter titel, pris, beskrivelse, detaljer og billeder fra annoncen.  
-- Downloader billeder til en lokal `images`-mappe.  
-- Gemmer annoncedata i en `vinted_data.json`-fil.  
-- Kan slette den sidste annonce (valgfrit).  
+⚠️ **Note:** Using automation tools may violate Vinted's rules. Use this script at your own risk.
 
 ---
 
-## Krav
+## Features
+
+- Logs into Vinted via a browser (manual login required).  
+- Navigates to your profile and finds the latest active listing.  
+- Retrieves the title, price, description, details, and images of the listing.  
+- Downloads images to a local `images` folder.  
+- Saves listing data to a `vinted_data.json` file.  
+- Can delete the latest listing (optional).  
+
+---
+
+## Requirements
 
 - Python 3.10+  
 - [Selenium](https://pypi.org/project/selenium/)  
 - [undetected-chromedriver](https://pypi.org/project/undetected-chromedriver/)  
 - [Requests](https://pypi.org/project/requests/)  
 
-Installer kravene via pip:
+Install the dependencies via pip:
 
 ```bash
 pip install selenium undetected-chromedriver requests
