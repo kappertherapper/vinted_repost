@@ -1,4 +1,5 @@
 import undetected_chromedriver as uc
+from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -16,6 +17,8 @@ def simple_vinted_login():
 
     # Start Chrome
     driver = uc.Chrome()
+
+    wait = WebDriverWait(driver, 10)
     
     try:
         print("Åbner Vinted...")
@@ -40,29 +43,30 @@ def simple_vinted_login():
         # Gå til din profil
         driver.get(f"https://www.vinted.dk/member/{profile}")
         time.sleep(5)
-
-        # Find og klik på aktiv knappen
-        click_active_button(driver)
-
-        # Find og klik på sidste annonce
-        click_last_item(driver)
         
-        # Find info om annoncen
-        listing_data['title'] = findTitle(driver)
-        listing_data['price'] = findPrice(driver)
-        listing_data["details"] = findDetails(driver)
-        listing_data["description"] = findDecription(driver)
-        findPictures(driver)
-        click_delete_button(driver)
+        # Test
+        click_sell_button(driver)
+
+        # Indlæs data
+        with open('vinted_data.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
+    
+        # Titel
+        wait.until(EC.presence_of_element_located((By.NAME, 'title'))).send_keys(data['title'])
+
+        # Description
+        description_field = wait.until(EC.element_to_be_clickable((By.NAME, "description")))
+        driver.execute_script("arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('input', { bubbles: true }));", description_field, data["description"])
+
 
 
         print("\nBrowseren forbliver åben...")
         input("Tryk Enter for at lukke...")
 
         # Gem resultater til JSON
-        with open("vinted_data.json", "w", encoding="utf-8") as f:
-            json.dump(listing_data, f, indent=2, ensure_ascii=False)
-            print("\n💾 Data gemt til vinted_data.json")
+        # with open("vinted_data.json", "w", encoding="utf-8") as f:
+        #    json.dump(listing_data, f, indent=2, ensure_ascii=False)
+        #    print("\n💾 Data gemt til vinted_data.json")
         
     except Exception as e:
         print(f"Fejl: {e}")
@@ -72,6 +76,24 @@ def simple_vinted_login():
         print("Browseren er lukket")
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------   
+
+def click_sell_button(driver):
+    selector = "//span[contains(text(), 'Sell now') or contains(text(), 'Sælg nu')]"
+    try:
+            btn = WebDriverWait(driver, 3).until(
+            EC.element_to_be_clickable((By.XPATH, selector))
+            )
+            
+            btn.click()
+            print("Klikkede på 'Sell now' knappen!")
+            time.sleep(3)
+            return True
+            
+    except Exception as e:
+        print(f"Selector virkede ikke: {e}")
+    
+    print("Kunne ikke finde 'Sælg nu' knappen")
+
 
 if __name__ == "__main__":
     print("Starter simpel Vinted login test...")
