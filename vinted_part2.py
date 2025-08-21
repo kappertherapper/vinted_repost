@@ -1,6 +1,7 @@
 import undetected_chromedriver as uc
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import os
@@ -58,7 +59,19 @@ def simple_vinted_login():
         description_field = wait.until(EC.element_to_be_clickable((By.NAME, "description")))
         driver.execute_script("arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('input', { bubbles: true }));", description_field, data["description"])
 
+        # Klik på kategori-feltet
+        category_field = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '[data-testid="category-dropdown"]')))
+        category_field.click()
 
+        # Vent på, at søgefeltet dukker op
+        search_input = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '[data-testid="dropdown-search-input"]')))
+
+        # Skriv "sneakers"
+        search_input.send_keys("sneakers")
+
+        # Vent lidt, og tryk ENTER (eller klik på første forslag)
+        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[data-testid="dropdown-option"]')))
+        search_input.send_keys(Keys.ENTER)
 
         print("\nBrowseren forbliver åben...")
         input("Tryk Enter for at lukke...")
