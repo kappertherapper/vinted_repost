@@ -42,8 +42,8 @@ def simple_vinted_login():
         
 
         # Gå til din profil
-        driver.get(f"https://www.vinted.dk/member/{profile}")
-        time.sleep(5)
+        #driver.get(f"https://www.vinted.dk/member/{profile}")
+        time.sleep(2)
         
         # Test
         click_sell_button(driver)
@@ -54,24 +54,33 @@ def simple_vinted_login():
     
         # Titel
         wait.until(EC.presence_of_element_located((By.NAME, 'title'))).send_keys(data['title'])
+        print("Title filled")
+        time.sleep(4)
 
         # Description
-        description_field = wait.until(EC.element_to_be_clickable((By.NAME, "description")))
-        driver.execute_script("arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('input', { bubbles: true }));", description_field, data["description"])
+        description = driver.find_element(By.CSS_SELECTOR, "textarea#description")
+        description.clear() #kan den uden?
+        description.send_keys(data["description"])
+        print("Description filled")
+        time.sleep(4)
 
-        # Klik på kategori-feltet
-        category_field = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '[data-testid="category-dropdown"]')))
-        category_field.click()
+        # Category
+        #category_dropdown = wait.until(EC.presence_of_element_located((By.NAME, 'category')))
+        #category_dropdown.click()
+        #time.sleep(2)
+        #print("Category dropdown opened")
 
-        # Vent på, at søgefeltet dukker op
-        search_input = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '[data-testid="dropdown-search-input"]')))
+        # Price
+        price_input = wait.until(EC.presence_of_element_located((By.NAME, 'price')))
 
-        # Skriv "sneakers"
-        search_input.send_keys("sneakers")
+        # Hent prisen
+        price = data["price"]
 
-        # Vent lidt, og tryk ENTER (eller klik på første forslag)
-        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[data-testid="dropdown-option"]')))
-        search_input.send_keys(Keys.ENTER)
+        # Fjern "DKK" (og evt. ekstra mellemrum)
+        clean_price = price.replace("DKK", "").strip()
+
+        price_input.send_keys(clean_price)
+        print("✅ Price filled")
 
         print("\nBrowseren forbliver åben...")
         input("Tryk Enter for at lukke...")
